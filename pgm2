@@ -1,0 +1,67 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+// Function to reverse a string
+void reverseString(char* str) {
+    int n = strlen(str);
+    for (int i = 0; i < n / 2; i++) {
+        char temp = str[i];
+        str[i] = str[n - i - 1];
+        str[n - i - 1] = temp;
+    }
+}
+
+// Function to decode the password from the reversed ASCII values string
+void decodePassword(char* asciiStr) {
+    reverseString(asciiStr);  // Step 1: Reverse the string
+    int length = strlen(asciiStr);
+    int i = 0;
+
+    printf("Decoded Password: ");
+    
+    while (i < length) {
+        int asciiValue = 0;
+
+        // Step 2: Pick two or three digits based on possible ASCII ranges
+        if (i + 2 < length && 
+            (asciiStr[i] == '1' || asciiStr[i] == '2' || asciiStr[i] == '3')) {
+            // Try to pick three digits
+            asciiValue = (asciiStr[i] - '0') * 100 + 
+                         (asciiStr[i + 1] - '0') * 10 + 
+                         (asciiStr[i + 2] - '0');
+            if (asciiValue >= 65 && asciiValue <= 122) {
+                i += 3;  // Move index by 3 digits
+            } else {
+                asciiValue = 0;  // Reset if not valid
+            }
+        }
+
+        // If not valid, try to pick two digits
+        if (asciiValue == 0) {
+            asciiValue = (asciiStr[i] - '0') * 10 + (asciiStr[i + 1] - '0');
+            i += 2;  // Move index by 2 digits
+        }
+
+        // Step 3: Convert the ASCII value to a character
+        char decodedChar = (char)asciiValue;
+
+        // Print the decoded character
+        printf("%c", decodedChar);
+    }
+
+    printf("\n");
+}
+
+int main() {
+    char asciiStr[1000];
+
+    // Input the string of ASCII values in reverse order
+    printf("Enter the ASCII values (in reverse order): ");
+    scanf("%s", asciiStr);
+
+    // Decode and print the password
+    decodePassword(asciiStr);
+
+    return 0;
+}
