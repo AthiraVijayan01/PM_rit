@@ -1,0 +1,31 @@
+def civil_war_soldiers(N, powers):
+    left = 0
+    right = N - 1
+    kingA_power = 0
+    kingB_power = 0
+    kingA_turn = True  # KingA starts first
+    
+    while left <= right:
+        if powers[left] >= powers[right]:
+            chosen_power = powers[left]
+            left += 1
+        else:
+            chosen_power = powers[right]
+            right -= 1
+        
+        if kingA_turn:
+            kingA_power += chosen_power
+        else:
+            kingB_power += chosen_power
+        
+        kingA_turn = not kingA_turn  # Alternate turns
+
+    return kingA_power, kingB_power
+
+# Example usage
+N = int(input())
+powers = list(map(int, input().split()))
+
+kingA_power, kingB_power = civil_war_soldiers(N, powers)
+print("KingA's Team Power:", kingA_power)
+print("KingB's Team Power:", kingB_power)
