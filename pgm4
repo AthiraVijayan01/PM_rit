@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+int NumberOfCarries(int num1, int num2) {
+    int carry = 0;
+    int count = 0;
+
+    // Continue the loop as long as there are digits in either number or there is a carry
+    while (num1 > 0 || num2 > 0) {
+        // Extract the last digits of both numbers
+        int digit1 = num1 % 10;
+        int digit2 = num2 % 10;
+
+        // Calculate the sum of the digits along with the carry
+        int sum = digit1 + digit2 + carry;
+
+        // If the sum exceeds 9, we have a carry
+        if (sum > 9) {
+            carry = 1;  // Set carry for the next digit
+            count++;    // Increment the carry count
+        } else {
+            carry = 0;  // Reset carry if no carry is generated
+        }
+
+        // Move to the next digits
+        num1 /= 10;
+        num2 /= 10;
+    }
+
+    return count;  // Return the total number of carries
+}
+
+int main() {
+    int num1, num2;
+
+    // Input the two numbers
+    printf("Enter the first number: ");
+    scanf("%d", &num1);
+    printf("Enter the second number: ");
+    scanf("%d", &num2);
+
+    // Calculate the number of carries
+    int result = NumberOfCarries(num1, num2);
+
+    // Output the result
+    printf("Number of carries: %d\n", result);
+
+    return 0;
+}
