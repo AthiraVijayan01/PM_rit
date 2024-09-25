@@ -1,0 +1,31 @@
+# Function to calculate the product of digits of a number
+def product_of_digits(num):
+    product = 1
+    for digit in str(num):
+        product *= int(digit)
+    return product
+
+# Input: number of elements in the array
+n = int(input("Enter the number of 3-digit numbers: "))
+
+# Array to store the 3-digit numbers
+numbers = []
+
+# Input the numbers
+for i in range(n):
+    while True:
+        num = int(input(f"Enter 3-digit number {i+1}: "))
+        if 100 <= num <= 999:
+            numbers.append(num)
+            break
+        else:
+            print("Please enter a valid 3-digit number.")
+
+# Calculate the product of digits for each number
+products = [product_of_digits(num) for num in numbers]
+
+# Calculate the average of the products
+average = sum(products) / len(products)
+
+# Output the result
+print("The average product of digits is:", average)
