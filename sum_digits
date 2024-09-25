@@ -1,0 +1,28 @@
+# Function to calculate the sum of digits of a number
+def sum_of_digits(num):
+    return sum(int(digit) for digit in str(num))
+
+# Input: number of elements in the array
+n = int(input("Enter the number of 3-digit numbers: "))
+
+# Array to store the 3-digit numbers
+numbers = []
+
+# Input the numbers
+for i in range(n):
+    while True:
+        num = int(input(f"Enter 3-digit number {i+1}: "))
+        if 100 <= num <= 999:
+            numbers.append(num)
+            break
+        else:
+            print("Please enter a valid 3-digit number.")
+
+# Calculate the sum of digits for each number
+sums = [sum_of_digits(num) for num in numbers]
+
+# Calculate the average of the sums
+average = sum(sums) / len(sums)
+
+# Output the result
+print("The average sum of digits is:", average)
