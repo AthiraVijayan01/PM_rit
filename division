@@ -1,0 +1,46 @@
+# Function to calculate the division of digits of a number
+def division_of_digits(num):
+    digits = [int(digit) for digit in str(num)]
+    
+    # Avoid division by zero (skip if any digit is 0)
+    if 0 in digits[1:]:
+        return None
+    
+    # Start dividing from the first digit
+    result = digits[0]
+    for digit in digits[1:]:
+        result /= digit
+    
+    return result
+
+# Input: number of elements in the array
+n = int(input("Enter the number of 3-digit numbers: "))
+
+# Array to store the 3-digit numbers
+numbers = []
+
+# Input the numbers
+for i in range(n):
+    while True:
+        num = int(input(f"Enter 3-digit number {i+1}: "))
+        if 100 <= num <= 999:
+            numbers.append(num)
+            break
+        else:
+            print("Please enter a valid 3-digit number.")
+
+# Calculate the division of digits for each number
+divisions = []
+for num in numbers:
+    result = division_of_digits(num)
+    if result is not None:
+        divisions.append(result)
+    else:
+        print(f"Skipped number {num} due to division by zero.")
+
+# Calculate the average of the divisions
+if divisions:
+    average = sum(divisions) / len(divisions)
+    print("The average division of digits is:", average)
+else:
+    print("No valid divisions were computed.")
